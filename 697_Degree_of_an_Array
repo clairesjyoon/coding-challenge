@@ -1,0 +1,80 @@
+// First trial
+/* 
+class Solution {
+    public int findShortestSubArray(int[] nums) {
+        // print the length of array which has the same degree with nums[]
+        
+        // measure degree 
+        Map<Integer, Integer> hm = new HashMap<>();
+        int max = 0;
+        for(int i : nums) {
+            hm.put(i, hm.getOrDefault(i,0)+1);
+            max = hm.get(i) > max ? hm.get(i) : max;
+        }
+		System.out.println("max is "+max);
+        
+        
+        List<Integer> keys = new ArrayList<>();
+        for(int key:hm.keySet()) {
+            if(hm.get(key) == max) {
+                keys.add(key);
+            }
+        }
+        
+        int min = nums.length + 1;
+		System.out.println("min is "+min);
+        // get the sub array
+		// generate subarrays satisfies 1) degree 2) smallest length
+		
+		for(int key : keys) {
+			for(int i = 0; i < nums.length; i++) {
+				if(nums[i] == key) {
+					int count = 1;
+					int len = 1;
+					int j = i + 1;
+					while (j < nums.length && count < max) {
+						if(nums[j] == key) count++; 
+						len++;
+						j++;
+					}
+					if(count == max) {
+						min = min < len ? min : len;
+					}
+				}
+			}
+		}
+		
+        return min;
+    }
+}
+
+*/
+
+class Solution {
+    public int findShortestSubArray(int[] nums) {
+		
+		// create three hashmap : left, right, count
+		Map<Integer, Integer> left = new HashMap(), 
+			right = new HashMap(),
+				count = new HashMap();
+		
+		for (int i = 0; i < nums.length; i++) {
+			int x = nums[i];
+			// if left hashmap doesn't have nums[i]... -> happens only once
+			if(left.get(x) == null) left.put(x, i);
+			// update everytime with current index
+			right.put(x, i);
+			count.put(x, count.getOrDefault(x,0)+1);
+		}
+		int ans = nums.length;
+		// get the biggest among count hm
+		int degree = Collections.max(count.values());
+		for (int x : count.keySet()) {
+			if(count.get(x) == degree) {
+				ans = Math.min(ans, right.get(x) - left.get(x) + 1);
+			}
+		}
+		
+		return ans;
+    }
+}
