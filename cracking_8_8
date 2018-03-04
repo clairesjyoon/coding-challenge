@@ -1,0 +1,49 @@
+import java.util.*;
+
+public class Practice {
+	public static void main(String[] args) {
+		
+		Solution sol = new Solution();
+		
+		System.out.println(sol.permutate("abccd"));
+		// put everything in hm 
+		// pick one
+	}
+}
+
+class Solution {
+	ArrayList<String> permutate(String s) {
+
+		ArrayList<String> result = new ArrayList<>();
+		Map<Character, Integer> hm = buildFreqTable(s);
+		permutate(hm, "", s.length(), result);
+		return result;
+	}
+	
+	// organize hm 
+	Map<Character, Integer> buildFreqTable(String s) {
+		Map<Character,Integer> hm = new HashMap<>();
+		for(char c : s.toCharArray()) {
+			hm.put(c, hm.getOrDefault(c,0)+1);
+		}
+		return hm;
+	}
+	
+	// overload permutate
+	void permutate(Map<Character,Integer> hm, String prefix, int remaining, List<String> result) {
+		// base case
+		if (remaining == 0) {
+			result.add(prefix);
+			return;
+		}
+		
+		for(Character c : hm.keySet()) {
+			int count = hm.get(c);
+			if (count > 0) {
+				hm.put(c, count - 1);
+				permutate(hm, prefix + c, remaining - 1, result);
+				hm.put(c, count);
+			}
+		}
+	}
+}
