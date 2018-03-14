@@ -1,0 +1,42 @@
+/*
+class Solution {
+    public TreeNode convertBST(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        traverse(root, list);
+        add(root, list);
+        
+        return root;
+        
+    }
+    private void traverse(TreeNode root, List<Integer> list) {
+        if(root == null) return;
+        traverse(root.left, list);
+        list.add(root.val);
+        traverse(root.right, list);
+    }
+    private void add(TreeNode root, List<Integer> list) {
+        if(root == null) return;
+        add(root.left, list);
+        int num = root.val;
+        for(int i = 0; i < list.size(); i++) {
+            root.val = num < list.get(i) ? root.val + list.get(i) : root.val;
+        }
+        add(root.right, list);
+    }
+}
+*/
+
+
+class Solution {
+    int sum = 0;
+    public TreeNode convertBST(TreeNode root) {
+        
+        if(root == null) return root;
+        convertBST(root.right);
+        sum += root.val;
+        root.val = sum;
+        convertBST(root.left);
+        
+        return root;
+    }
+}
