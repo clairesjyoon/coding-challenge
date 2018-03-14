@@ -1,0 +1,52 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        //
+        if(root == null) return false;
+        if(root.left== null && root.right== null) return false;
+        
+        List<Integer> list = new ArrayList<>();
+        traverse(root, list);
+        System.out.println(list);
+        
+        if( list.get(list.size() - 1 ) + list.get(list.size() - 2) < k) return false;
+        
+        for(int i = 0; i < list.size(); i++) {
+            int toFind = k - list.get(i);
+            for(int j = i + 1 ; j < list.size(); j++) {
+                if(toFind == list.get(j)) return true;
+            }
+        }
+        return false;
+    }
+    private void traverse(TreeNode root, List<Integer> list) {
+        if(root.left != null) traverse(root.left, list);
+        list.add(root.val);
+        if(root.right != null) traverse(root.right, list);
+    }
+}
+
+
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        Set<Integer> set = new HashSet<>();
+        return find(root, k, set);
+    }
+    private boolean find(TreeNode root, int k, Set<Integer> set) {
+        if(root == null) return false;        
+        int toFind = k - root.val;
+        if(set.contains(toFind)) return true;
+        set.add(root.val);
+        return find(root.left, k, set) || find(root.right, k, set);
+    }
+}
+
+
