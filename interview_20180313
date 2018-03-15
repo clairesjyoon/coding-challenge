@@ -1,0 +1,56 @@
+import java.util.*;
+
+public class Practice {
+	public static void main(String[] args) {
+		
+	Solution sol = new Solution();
+
+	String input = "col";
+	List<String> list = new ArrayList<>();
+	list.add("columbia");
+	list.add("colombia");
+	list.add("college");
+	list.add("university");
+	System.out.println(sol.check(input, list));
+	}
+}
+
+class Solution {
+    public List<String> check(String input, List<String> list) {
+       
+		if(list == null) return null;
+		if(input == null) return list;
+		
+		List<String> result = new ArrayList<>();
+		Map<Character, Integer> hmInput = new HashMap<>();
+		List<Map<Character,Integer>> hmArray = new ArrayList<>(list.size());
+		
+		for(char c : input.toCharArray()) {
+			hmInput.put(c, hmInput.getOrDefault(c, 0) + 1);
+		}
+		System.out.println(hmInput);
+		
+		for(String s : list) {
+			Map<Character, Integer> hmItem = new HashMap<>();
+			for(char c : s.toCharArray()) {
+				hmItem.put(c, hmItem.getOrDefault(c, 0) + 1);
+			}
+			hmArray.add(hmItem);
+		}
+		
+		boolean check = false;
+		for(int i = 0; i < hmArray.size(); i++) {
+			System.out.println(hmArray.get(i));
+			for(char c : hmInput.keySet()) {
+				if(hmArray.get(i).containsKey(c) && hmArray.get(i).get(c) <= hmInput.get(c)) {
+					check = true;
+					break;
+				}
+			}
+			if(check) result.add(list.get(i));
+			check = false;
+		}
+		
+		return result;
+    }
+}
