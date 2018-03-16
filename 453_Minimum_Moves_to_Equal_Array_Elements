@@ -1,0 +1,31 @@
+class Solution {
+    public int minMoves(int[] nums) {
+        // THIS IS MATH!
+        
+        int len = nums.length;
+        int min = nums[0];
+        int sum = 0;
+        for(int i : nums) {
+            sum += i;
+            min = Math.min(min,i);
+        }
+        return sum - len * min;
+    }
+}
+/* 
+// + 1 to n - 1 items  == - 1 to one item
+class Solution {
+    public int minMoves(int[] nums) {
+        int min = nums[0];
+        for(int i : nums) {
+            min = Math.min(i, min);
+        }
+        
+        int result = 0;
+        for(int i : nums) {
+            result += i - min;
+        }
+        return result;
+    }
+}
+*/
