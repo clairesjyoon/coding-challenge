@@ -1,0 +1,29 @@
+class Solution {
+    public int minMoves(int[] nums) {
+        
+        int count = 0;
+        if(nums.length == 2) return Math.abs(nums[0] - nums[1]);
+        
+        while(true) {
+            if(checkEqual(nums)) break;
+            
+            Arrays.sort(nums);
+            increment(nums);
+            count++;
+        }
+        
+        return count;
+    }
+    private boolean checkEqual(int[] nums) {
+        
+        for(int i : nums) {
+            if(nums[0] != i) return false;
+        }
+        return true;
+    }
+    private void increment(int[] nums) {
+        for(int i = 0; i < nums.length - 1; i++) {
+            nums[i]++;
+        }
+    }
+}
