@@ -1,0 +1,32 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        // not returing null. return []
+        if(numRows == 0) return result;
+
+        int i = 1;
+        // iterate numRows of time
+        while(i <= numRows) {
+            List<List<Integer>> temp = result;
+            result.add(nextRow(temp));
+            i++;
+        }
+        return result;
+    }
+    private List<Integer> nextRow(List<List<Integer>> previous) {
+        List<Integer> result = new ArrayList<>();
+        if(previous.size() == 0) {
+            result.add(1);
+            return result;
+        }
+        // get last list from the input
+        List<Integer> last = previous.get(previous.size() - 1);
+        result.add(1);
+        for(int i = 0; i < last.size() - 1; i++) {
+            result.add(last.get(i) + last.get(i + 1));
+        }
+        result.add(1);
+        return result;
+    }
+}
