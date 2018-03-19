@@ -1,17 +1,25 @@
+// define color data type
 enum Color {Black, White, Red, Yellow, Green}
 
 class Solution {
 	boolean paintFill(Color[][] screen, int r, int c, Color ncolor) {
+		// when starting point already has new color -> done
 		if(screen[r][c] == ncolor) return false;
+		// otherwise, it will change color
 		return paintFill(screen, r, c, screen[r][c], ncolor);
 	}
 	
+	//override
 	boolean paintFill(Color[][] screen, int r, int c , Color ocolor, Color ncolor) {
+		// check if it is within border
 		if(r < 0 || r >= screen.length || c < 0 || c >= screen[0].length){
 			return false;
-		}	
+		}
+		// if current point has original color
 		if(screen[r][c] == ocolor) {
+			// change itself to new color
 			screen[r][c] = ncolor;
+			// and change in four different directions
 			paintFill(screen, r - 1, c, ocolor, ncolor);
 			paintFill(screen, r + 1, c, ocolor, ncolor);
 			paintFill(screen, r, c - 1, ocolor, ncolor);
