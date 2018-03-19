@@ -1,0 +1,31 @@
+
+public List<Integer> builderOrder(int[][] processes) {
+	Set<Integer> tempMarks = new HashSet<Integer>();
+	Set<Integer> permMarks = new HashSet<Integer>();
+	List<Integer> result = new LinkedList<Integer>();
+	// 0:
+  // 1: 0
+  // 2: 0
+  // 3: 1,2
+  // 4: 3
+	for (int i = 0; i < processes.length; i++) {
+		if(!permMarks.contains(i)) {
+			visit(i, processes, tempMarks, permMarks, result);
+		}
+	}
+	return result;
+}
+
+public void visit(int process, int[][] processes, Set<Integer> tempMarks, Set<Integer> permMarks, List<Integer> results) {
+  // if it creates cycle, there is no right answer
+	if(tempMarks.contains(process)) throw new RuntimeException();
+	if(!permMarks.contains(process)) {
+		tempMarks.add(process);
+		for(int i : processes[process]) {
+			visit(i, processes, tempMarks, permMarks, results);
+		}
+		permMarks.add(process);
+		tempMarks.remove(process);
+		results.add(process);
+	}	
+}
