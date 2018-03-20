@@ -1,0 +1,44 @@
+
+
+class Solution {
+    public int rob(int[] nums) {
+        if(nums.length == 0) return 0;
+        int a = 0;
+        int b = 0;
+        // 5 2 9 4 6 3 1 4
+        // 2 1 1 2 
+        for(int i = 0; i < nums.length; i++) {
+            if(i % 2 == 0) {
+            // when i is even
+                // this time max
+                a = a + nums[i];
+                // choose between former max and a
+                a = Math.max(a , b);
+            } else {
+                // when i is odd
+                // choose btw last max and this max
+                b = Math.max(a, nums[i] + b);
+            }           
+        }
+        return Math.max(a,b);
+
+    }
+}
+
+class Solution {
+    public int rob(int[] nums) {
+        if(nums.length == 0) return 0;
+        int rob = 0;
+        int notrob = 0;
+        for(int i = 0; i < nums.length; i++) {
+            // if rob current house - always will be like notrob + curr
+            int currob = notrob + nums[i];
+            // if not - both works, to rob (n-1)th or not to rob (n-1)th
+            notrob = Math.max(notrob, rob);
+            // update rob
+            rob = currob;
+        }
+        return Math.max(rob,notrob);
+    }
+}
+
