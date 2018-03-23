@@ -1,0 +1,50 @@
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0) return "";
+        if(strs.length == 1) return strs[0];
+        StringBuilder result = new StringBuilder();
+        
+        int max = 0;
+        for(String st : strs) {
+            max = st.length() > max ? st.length() : max;
+        }
+        int min = max;
+        for(String st : strs) {
+            min = st.length() < min ? st.length() : min; 
+        }
+        
+        int count = 0;
+        int len = 0;
+        while(count < min){
+            char check = strs[0].charAt(count); 
+            for(String str : strs) {
+                if(check != str.charAt(count)) break;
+                else len++;
+            }
+            if(len == strs.length) {
+                result.append(check);
+                len = 0;
+            }
+            else break;
+            
+            count++;
+        }
+        return result.toString();
+    }
+}
+
+////////////////////////////////////////////////////////
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0) return "";
+        String prefix = strs[0];
+        for(int i = 1; i < strs.length; i++) {
+            while(strs[i].indexOf(prefix) != 0) {
+                prefix = prefix.substring(0, prefix.length() - 1);
+                if(prefix.equals("")) return "";
+            }
+        }
+        return prefix;
+    }
+}
