@@ -34,14 +34,16 @@ class Solution {
 }
 
 ////////////////////////////////////////////////////////
-
 class Solution {
     public String longestCommonPrefix(String[] strs) {
+
         if(strs.length == 0) return "";
         String prefix = strs[0];
+        // aa ab aaa cc        
         for(int i = 1; i < strs.length; i++) {
-            while(strs[i].indexOf(prefix) != 0) {
-                prefix = prefix.substring(0, prefix.length() - 1);
+            //indexOf(String str) : Returns the index within this string of the first occurrence of the specified substring
+            while(strs[i].indexOf(prefix) != 0) { // so prefix.indexOf(strs[i]) == 0 means that prefix is valid
+                prefix = prefix.substring(0, prefix.length() - 1); //substring(int beginIndex, int endIndex) * endIndex Not included!!!
                 if(prefix.equals("")) return "";
             }
         }
