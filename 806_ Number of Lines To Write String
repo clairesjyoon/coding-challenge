@@ -1,0 +1,19 @@
+class Solution {
+    public int[] numberOfLines(int[] widths, String S) {
+        int[] result = new int[2]; // number of lines + what is the width used by the last such line
+        
+        int units = 0;
+        int line = 1;
+        for(int i = 0; i < S.length(); i++) {
+            units += widths[S.charAt(i) - 'a'];
+            if(units > 100) {
+                line++;
+                units = widths[S.charAt(i) - 'a'];
+            }
+        }
+        result[0] = line;
+        result[1] = units;
+        
+        return result;
+    }
+}
