@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>(); 
+		int[] sofar = {};
+        recursive(sofar,nums,result);
+        return result;
+    }
+    private void recursive (int[] soFar, int[] rest, List<List<Integer>> result) {
+        if(rest.length == 0) {
+            List<Integer> al = new ArrayList<>();
+			for(int i = 0; i < soFar.length; i++) {
+				al.add(soFar[i]);
+			}
+            result.add(al);
+            return;
+        }
+        for(int i = 0; i < rest.length; i++) {
+            int[] next = new int[soFar.length + 1];
+            System.arraycopy(soFar, 0, next, 0, soFar.length);
+			next[soFar.length] = rest[i];
+			
+			int[] remaining =new int[rest.length - 1];
+            System.arraycopy(rest, 0, remaining, 0, i);
+            System.arraycopy(rest, i + 1, remaining, i, rest.length - i - 1);
+            recursive(next,remaining, result);
+        }
+    }
+}
+
