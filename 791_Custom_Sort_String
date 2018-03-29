@@ -1,0 +1,22 @@
+class Solution {
+    public String customSortString(String S, String T) {
+        int[] abc = new int[26];
+        for(char c : T.toCharArray()) {
+            abc[c - 'a']++;
+        }
+        StringBuilder result = new StringBuilder();
+        for(char c : S.toCharArray()) {
+            while(abc[c -'a'] > 0) {
+                result.append(c+"");
+                abc[c - 'a']--;
+            } 
+        }
+        for(int i = 0; i < abc.length; i++) {
+            while(abc[i] > 0) {
+                result.append((char)(i + 'a'));
+                abc[i]--;
+            }
+        }
+        return result.toString();
+    }
+}
