@@ -1,0 +1,26 @@
+class Solution{
+	public int recursiveMultiply(int a, int b) {
+		if(a == 1 || b == 1) return 0;
+
+		int small = a > b ? b : a;
+		int big = a > b ? a : b;
+		
+		return minProductHelper(small, big);
+	}
+	
+	int minProductHelper(int smaller, int bigger) {
+		if (smaller == 0 ) return 0;
+		if (smaller == 1 ) return bigger;
+		
+		int s = smaller >> 1; // divided by 2 
+		int halfProd = minProductHelper(s, bigger);
+		
+		if(smaller % 2 == 0) {
+			return halfProd + halfProd;
+		} else { 
+			return halfProd + halfProd + bigger;
+		}
+	}
+  
+}
+ 
