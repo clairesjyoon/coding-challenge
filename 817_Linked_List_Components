@@ -1,0 +1,33 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int numComponents(ListNode head, int[] G) {
+        ListNode curr = head;
+        int result = 0;
+        boolean consec = false;
+
+        while(curr != null) {
+            boolean found = false;
+            for(int i : G) {
+                if(curr.val == i && consec == false) {
+                    consec = true;
+                    result++;
+                    found = true;
+                    break;
+                } else if (curr.val == i && consec == true) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) consec = false;
+            curr = curr.next;
+        }
+        return result;
+    }
+}
